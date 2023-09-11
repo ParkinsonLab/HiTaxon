@@ -12,7 +12,7 @@ Please refer to our paper for more information:
 
 Data used to evaluate classifiers in our study can be accessed at: 
 
-Link to be added
+https://doi.org/10.5281/zenodo.8335901
 
 
 ## Installation
