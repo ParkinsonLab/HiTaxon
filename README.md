@@ -19,7 +19,7 @@ https://doi.org/10.5281/zenodo.8335901
 
 Clone the repository
 ```bash
-git clone https://github.com/Bhav7/HiTaxon
+git clone https://github.com/ParkinsonLab/HiTaxon
 ```
 Navigate to the repository
 ```bash
