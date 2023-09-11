@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+KRAKEN_NAME=$1
+KRAKEN_PATH=$2
+NUM_OF_THREADS=$3
+REPORT_NAME=$4
+REPORT_PATH=$5
+SEQUENCE_FILE=$6
+
+
+#Classify reads with Kraken2
+kraken2 --db $KRAKEN_PATH/$KRAKEN_NAME --threads $NUM_OF_THREADS --report $REPORT_PATH/$REPORT_NAME.kreport2 $SEQUENCE_FILE > $REPORT_PATH/$REPORT_NAME.kraken
