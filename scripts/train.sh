@@ -17,5 +17,37 @@ fi
 #Process simulated reads to prepare for training
 "scripts/train/prepare.sh" $GENUS_NAMES $OUTPUT_PATH 
 
-#Train specie-level ML classifiers
-python "scripts/train/train.py" $GENUS_NAMES $MODEL_PATH $OUTPUT_PATH
+# Initialize the mode variable
+mode=""
+
+# Function to show prompt and read user input
+ask_mode() {
+  echo "Please enter the mode you want to be in:"
+  echo "1) data_creation"
+  echo "2) model_creation"
+  read -p "Enter your choice (1 or 2): " choice
+}
+
+# Loop until a valid input is provided
+while true; do
+  ask_mode
+
+  case $choice in
+    1|data_creation)
+      mode="data_creation"
+      echo "You have chosen 'data_creation' mode."
+      break
+      ;;
+    2|model_creation)
+      mode="model_creation"
+      echo "You have chosen 'model_creation' mode."
+      break
+      ;;
+    *)
+      echo "Invalid input. Please enter 1 for 'data_creation' or 2 for 'model_creation'."
+      ;;
+  esac
+done
+
+#Train species-level ML classifiers
+python "scripts/train/train.py" $GENUS_NAMES $MODEL_PATH $OUTPUT_PATH $mode

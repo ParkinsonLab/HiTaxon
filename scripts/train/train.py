@@ -14,10 +14,13 @@ def main():
     parser.add_argument("genus_names", type = str, help = "path to text file which lists the genera of interest, seperated by newline characters")
     parser.add_argument("model_path", type = str, help = "path in which machine learning classifiers are saved")
     parser.add_argument("output_path", type = str, help = "path in which RefSeq seqeunces are collected and processed" )
+    parser.add_argument("mode",type = str)
     args = parser.parse_args()
 
     output_path = args.output_path
     model_path = args.model_path
+    mode = args.mode
+    print(mode)
 
     from ete3 import NCBITaxa
     ncbi = NCBITaxa()
@@ -40,10 +43,12 @@ def main():
             data_creation(genus, 13, genus_names, ncbi, output_path, model_path)
             os.system(f"shuf {model_path}/{genus}_train.txt > {model_path}/{genus}_train_shuffled.txt")
         #Train models
-        model = model_train(genus, model_path)
-        model.save_model(f"{model_path}/{genus}_model.bin")
-        os.remove(f"{model_path}/{genus}_train.txt")
-        os.remove(f"{model_path}/{genus}_train_shuffled.txt")
+        if mode == "model_creation":
+            #Train models
+            model = model_train(genus, model_path)
+            model.save_model(f"{model_path}/{genus}_model.bin")
+            os.remove(f"{model_path}/{genus}_train.txt")
+            os.remove(f"{model_path}/{genus}_train_shuffled.txt")
 
 
 
