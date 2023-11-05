@@ -8,6 +8,7 @@ dependencies:
   - art=2016.06.05
   - bioconductor-polyester=1.36
   - biopython=1.81
+  - bwa=0.7.17
   - cd-hit=4.8.1
   - ete3=3.1.3
   - kaiju=1.9.2
