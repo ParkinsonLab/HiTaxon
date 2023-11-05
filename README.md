@@ -133,6 +133,16 @@ To reduce runtime for evaluation, we have also added the option to use only the 
 
 ## Use Cases
 
+While we imagine researchers can derive value from HiTaxon through a multiple of use cases, 4 common use cases we might expect are 
+
+1. Building the best taxonomic classifier for a particular dataset when there are moderate time constraints
+2. Building the best taxonomic classifier for particular dataset when there are significant time constrains
+3. Ensembling existing Kraken2 databases with HiTaxon-curated specialized classifiers
+4. Creating Training Data for custom ML classifiers
+
+Consequently, we have provided step-by-step instructions for each potential use case.
+
+
 ### Use Case 1: Building the best taxonomic classifier for a particular dataset (moderate time constraints)
 
 To create the best taxonomic classifier for a particular dataset when there are moderate time constraints, we recommend employing Kraken2-HiTaxon-Align, which is an hierarchical ensemble consisting of a Kraken2 classifier paired with HiTaxon curated sequences and specialized BWA indices. In our manuscript, we highlight that Kraken2-HiTaxon-Align is the best performing taxonomic classifier amongst all that were tested.
@@ -225,7 +235,7 @@ To create a hierarchical ensemble using an existing Kraken2 database with HiTaxo
     ./HiTaxon.sh --evaluate -f path/to/input.fasta -o name_of_output_report -m Kraken2_ML
     ```
 
-### Use Case 4: Creating Training Data for Custom ML classifiers
+### Use Case 4: Creating Training Data for custom ML classifiers
 To train ML classifiers for HiTaxon, we have built a robust framework for training both multi-class classifiers (i.e genus encompassed multiple species) and binary classifiers (i.e genus encompasses a single species). However, while we used FastText classifiers, we do acknowledge that individual researchers might prefer to test different algorithms for species classification. Consequently, we allow for HiTaxon to create and process training data without forcing the user to also train ML models
 
 To use this feature, execute the following steps in order:
