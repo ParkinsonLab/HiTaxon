@@ -51,6 +51,7 @@ MODEL_PATH=/path/to/store_ML_models
 NUM_OF_THREADS=number_of_threads
 OUTPUT_PATH=/path/to/download_and_process_RefSeq_data
 REPORT_PATH=/path/to/store_taxonomic_predictions
+BWA_PATH=/path/to/store_bwa_indices
 ```
 
 If ASSEMBLY_SUMMARY is left as default, HiTaxon will download and use the latest file from NCBI. If you want to use a specific version, provide the path to the file
