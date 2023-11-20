@@ -80,7 +80,7 @@ To download sequences from RefSeq corresponding to the predefined genera of inte
 
 ### Remove Redundant Sequences
 
-To process sequences which were downloaded from RefSeq, use the following command
+To process sequences which were downloaded from RefSeq via a 2-step clustering approach, use the following command
 
 ```bash
 ./HiTaxon.sh --process
@@ -109,7 +109,7 @@ To train genus-specific machine learning classifiers for species prediction, use
 ```bash
 ./HiTaxon.sh --train
 ```
-Note: You will be prompted by HiTaxon on as to whether the mode is in 1) data_creation  or 2) model_creation, **select option 2** .
+Note: You will be prompted on the command line on as to whether HiTaxon is in 1) data_creation  or 2) model_creation mode, **select option 2** .
 
 ### Generate Taxonomic Predictions
 
@@ -136,7 +136,7 @@ To reduce runtime for evaluation, we have also added the option to use only the 
 While we imagine researchers can derive value from HiTaxon through a multiple of use cases, 4 common use cases we might expect are 
 
 1. Building the best taxonomic classifier for a particular dataset when there are moderate time constraints
-2. Building the best taxonomic classifier for particular dataset when there are significant time constrains
+2. Building the best taxonomic classifier for a particular dataset when there are significant time constrains
 3. Ensembling existing Kraken2 databases with HiTaxon-curated specialized classifiers
 4. Creating Training Data for custom ML classifiers
 
@@ -145,7 +145,7 @@ Consequently, we have provided step-by-step instructions for each potential use 
 
 ### Use Case 1: Building the best taxonomic classifier for a particular dataset (moderate time constraints)
 
-To create the best taxonomic classifier for a particular dataset when there are moderate time constraints, we recommend employing Kraken2-HiTaxon-Align, which is an hierarchical ensemble consisting of a Kraken2 classifier paired with HiTaxon curated sequences and specialized BWA indices. In our manuscript, we highlight that Kraken2-HiTaxon-Align is the best performing taxonomic classifier amongst all that were tested.
+To create the best taxonomic classifier for a particular dataset when there are moderate time constraints, we recommend employing Kraken2-HiTaxon-Align, which is an hierarchical ensemble consisting of a Kraken2 classifier paired with a HiTaxon constructed database and specialized genus to set of species BWA indices. In our manuscript, we highlight that Kraken2-HiTaxon-Align is the best performing taxonomic classifier amongst all that were tested.
 
 In order to build this ensemble, execute the following steps in order:
 1. Create a directory to store sequence data from RefSeq.
@@ -173,8 +173,8 @@ In order to build this ensemble, execute the following steps in order:
     ./HiTaxon.sh --evaluate -f path/to/input.fasta -o name_of_output_report -m Kraken2_BWA
     ```
 
-### Use Case 2: Building the best taxonomic classifier for particular dataset (significant time constrains)
-To create the best taxonomic classifier for a particular dataset when there are signigicant time constraints, we recommend employing Kraken2-HiTaxon-DB, which is composed entirely of Kraken2 with a HiTaxon curated database. This approach has a small reduction in recall relative to Kraken2-HiTaxon-Align but requires much less time during evaluation.
+### Use Case 2: Building the best taxonomic classifier for a particular dataset (significant time constrains)
+To create the best taxonomic classifier for a particular dataset when there are significant time constraints, we recommend employing Kraken2-HiTaxon-DB, which is composed entirely of Kraken2 with a HiTaxon curated database. This approach has a small reduction in recall relative to Kraken2-HiTaxon-Align but requires much less time during evaluation.
 
 In order to build this classifier, execute the following steps in order:
 1. Create a directory to store sequence data from RefSeq.
@@ -184,7 +184,7 @@ In order to build this classifier, execute the following steps in order:
     ```bash
     ./HiTaxon.sh --collect
     ```
-5. Cluster similiar assemblies and coding sequences :
+5. Cluster similiar assemblies and coding sequences:
     ```bash
     ./HiTaxon.sh --process
     ```
@@ -198,12 +198,12 @@ In order to build this classifier, execute the following steps in order:
     ./HiTaxon.sh --evaluate -f path/to/input.fasta -o name_of_output_report -m Kraken2
     ```
 
-### Use Case 3: Ensembling existing Kraken2 databases with HiTaxon-curated specialized classifiers
+### Use Case 3: Ensembling existing Kraken2 database with HiTaxon-curated specialized classifiers
 To create a hierarchical ensemble using an existing Kraken2 database with HiTaxon-curated specialized classifiers, execute the following steps in order:
 
 1. Create a directory to store sequence data from RefSeq.
 2. Within this directory, create a file called `taxon.txt` which lists all genera of interest, using the same format highlighted earlier in the documentation.
-3. In the HiTaxon directory, create a `config.file`, using the same format highlighted earlier in the documentation. **Make sure config.file references the path in which the pre-existing Kraken2 database stored, alongside the name of the database**
+3. In the HiTaxon directory, create a `config.file`, using the same format highlighted earlier in the documentation. **Make sure config.file references the path in which the pre-existing Kraken2 database is stored, alongside the name of the database**
 4. Download sequences from RefSeq pertaining to the set of genera listed in `taxon.txt` :
     ```bash
     ./HiTaxon.sh --collect
@@ -217,12 +217,12 @@ To create a hierarchical ensemble using an existing Kraken2 database with HiTaxo
     ./HiTaxon.sh --align
     ```
 
-6. Option B. Train specialized ML for each genus to set of species pair using non-redundant sequences aquired from Step 5:
-   
-   Note: You will be prompted by HiTaxon on as to whether the mode is in 1) data_creation  or 2) model_creation, **select option 2** . 
-    ```bash
+   Option B. Train specialized ML for each genus to set of species pair using non-redundant sequences aquired from Step 5:
+     ```bash
     ./HiTaxon.sh --train
     ```
+   Note: You will be prompted by the command line on as to whether the HiTaxon is in 1) data_creation  or 2) model_creation mode, **select option 2** . 
+  
 
 
 7. Option A. Use the hierarchical ensemble of Kraken2 and BWA to generate taxonomic predictions for short-reads in `input.fasta` :
@@ -230,13 +230,13 @@ To create a hierarchical ensemble using an existing Kraken2 database with HiTaxo
     ./HiTaxon.sh --evaluate -f path/to/input.fasta -o name_of_output_report -m Kraken2_BWA
     ```
 
-7. Option B. Use the hierarchical ensemble of Kraken2 and ML classifiers to generate taxonomic predictions for short-reads in  `input.fasta` :
+    Option B. Use the hierarchical ensemble of Kraken2 and ML classifiers to generate taxonomic predictions for short-reads in  `input.fasta` :
     ```bash
     ./HiTaxon.sh --evaluate -f path/to/input.fasta -o name_of_output_report -m Kraken2_ML
     ```
 
 ### Use Case 4: Creating Training Data for custom ML classifiers
-To train ML classifiers for HiTaxon, we have built a robust framework for training both multi-class classifiers (i.e genus encompassed multiple species) and binary classifiers (i.e genus encompasses a single species). However, while we used FastText classifiers, we do acknowledge that individual researchers might prefer to test different algorithms for species classification. Consequently, we allow for HiTaxon to create and process training data without forcing the user to also train ML models
+To train ML classifiers for HiTaxon, we have built a robust framework for training both multi-class classifiers (i.e genus encompasses multiple species) and binary classifiers (i.e genus encompasses a single species). However, while we used FastText classifiers, we do acknowledge that individual researchers might prefer to test different algorithms for species classification. Consequently, we allow for HiTaxon to create and process training data without forcing the user to also train ML models
 
 To use this feature, execute the following steps in order:
 
@@ -256,9 +256,9 @@ To use this feature, execute the following steps in order:
     ```bash
     ./HiTaxon.sh --train
     ```
-7. You will be promoted whether HiTaxon is in 1) data_creation  or  2) model_creation mode, **select  option 1**. This will generate a .txt for all genus to set of species pairs, for both multi-class and binary problems, which can be easily reformatted by researchers for their ML algorithm of choice.
+You will be prompted whether HiTaxon is in 1) data_creation  or  2) model_creation mode, **select  option 1**. This will generate a .txt for all genus to set of species pairs, for both multi-class and binary problems, which can be easily reformatted by researchers for their ML algorithm of choice.
 
-   Note: If you want to change the K-mer value from the default of K = 13, a single parameter change in train.py, which can be found in scripts/train/, is all that is needed
+Note: If you want to change the K-mer value from the default of K = 13, a single parameter change in train.py, which can be found in scripts/train/, is all that is needed
 
 
 ## Links to software used for HiTaxon
