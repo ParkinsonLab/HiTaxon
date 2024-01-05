@@ -258,7 +258,7 @@ def ensemble(report_path, report_name, mode):
         #IF specialized model has no species prediction, ensemble uses Kraken2 prediction
         elif str(specialized_species["species"].iloc[i]) == "nan":
             ensemble_preds.append(reference["species"].iloc[i])
-        #By default, uses ML predictions
+        #By default, uses specialized model predictions
         else:
             ensemble_preds.append(str(specialized_species["species"].iloc[i]))
     ensemble_preds = [str(i).replace(" ","_") for i in ensemble_preds]
