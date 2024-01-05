@@ -23,7 +23,7 @@ Navigate to the repository
 ```bash
 cd HiTaxon
 ```
-Create conda environment
+Create conda environment (Can take 15-30 Minutes)
 ```bash
 conda env create --name HiTaxon --file environment.yml
 ```
