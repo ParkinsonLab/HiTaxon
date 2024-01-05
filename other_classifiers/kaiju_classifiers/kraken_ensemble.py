@@ -14,7 +14,7 @@ def kaiju_kraken_ensemble(report_path, report_name):
     ranks = ["species", "genus", "family", "order", "class", "phylum"]
     for i in range(0, len(kraken_preds)):
         #If no outputs are provided at the species level, use Kraken2's predictions
-        if str(kraken_preds["genus"].iloc[i]) == "nan" and str(kaiju_preds["genus"].iloc[i]) == "nan":
+        if str(kraken_preds["species"].iloc[i]) == "nan" and str(kaiju_preds["species"].iloc[i]) == "nan":
             ensemble.append(kraken_preds.iloc[i])
         #else if no outputs are provided by Kraken2 at the species level, use Kaiju's predictions
         elif str(kraken_preds["species"].iloc[i]) == "nan":
