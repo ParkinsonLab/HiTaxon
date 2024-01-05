@@ -23,7 +23,7 @@ Navigate to the repository
 ```bash
 cd HiTaxon
 ```
-Create conda environment (Can take 15-30 Minutes)
+Create conda environment (Can take ~30 Minutes)
 ```bash
 conda env create --name HiTaxon --file environment.yml
 ```
@@ -56,7 +56,7 @@ BWA_PATH=/path/to/store_bwa_indices
 
 Note 1: If ASSEMBLY_SUMMARY is left as default, HiTaxon will download and use the latest file from NCBI. If you want to use a specific version, provide the path to the specified assembly_summary text file
 
-Note 2: For directory path declerations (i.e variables with PATH in name), if directory does not exist, HiTaxon will create the directory 
+Note 2: For directory path declarations (i.e variables with PATH in name), if directory does not exist, HiTaxon will create the directory 
 
 The text file corresponding to GENUS_NAMES needs to be structured as below:
 
