@@ -99,11 +99,13 @@ In order to build this ensemble, execute the following steps in order:
     ```bash
     ./HiTaxon.sh --align
     ```
+    Note: If execution is terminated mid-construction of index for specific genus to set of species pair, simply delete the .ann file corresponding to it and rerun the command 
 
 8. Use the hierarchical ensemble to generate taxonomic predictions for short-reads in `input.fasta`:
     ```bash
     ./HiTaxon.sh --evaluate -f path/to/input.fasta -o name_of_output_report -m Kraken2_BWA
     ```
+   Will generate an output of `{name_of_output_report}_ensemble_bwa.csv `
 
 ### Use Case 2: Building the best taxonomic classifier for a particular dataset (significant time constrains)
 To create the best taxonomic classifier for a particular dataset when there are significant time constraints, we recommend employing Kraken2-HiTaxon-DB, which is consists solely of Kraken2 with a HiTaxon curated database. This approach has a small reduction in recall relative to Kraken2-HiTaxon-Align but requires much less time to generate predictions.
@@ -129,6 +131,7 @@ In order to build this classifier, execute the following steps in order:
     ```bash
     ./HiTaxon.sh --evaluate -f path/to/input.fasta -o name_of_output_report -m Kraken2
     ```
+    Will generate an output of `{name_of_output_report}_lineage_kraken.csv` 
 
 ## Potential Other Usages
 

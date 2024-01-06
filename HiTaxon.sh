@@ -168,7 +168,7 @@ if [ "$ACTION_E" == true ]; then
     fi
 fi
 
-if [ "$ACTION_C" != true ] && [ "$ACTION_P" != true ] && [ "$ACTION_B" != true ] && [ "$ACTION_T" != true ]  && [ "$ACTION_E" != true ]  && [ "$HELP" != true ]; then
+if [ "$ACTION_C" != true ] && [ "$ACTION_P" != true ] && [ "$ACTION_A" != true ] && [ "$ACTION_B" != true ] && [ "$ACTION_T" != true ] && [ "$ACTION_E" != true ] && [ "$HELP" != true ]; then
     usage
 fi
                                                                       
