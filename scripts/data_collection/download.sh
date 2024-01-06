@@ -23,10 +23,10 @@ done
 
 #Create RefSeq metadata files
 find $OUTPUT_PATH -type f -name "assembly_data_report.jsonl" | while read fname; do
-    dataformat tsv genome --inputfile $fname > "${fname%/*}/genome.tsv"
+    dataformat tsv genome --inputfile $fname > "${fname%/*}/genome.tsv" 2>/dev/null
 done
 
 find $OUTPUT_PATH -type f -name "sequence_report.jsonl"|while read fname; do 
-    dataformat tsv genome-seq --inputfile $fname > "${fname%/*}/genome_seq.tsv"
+    dataformat tsv genome-seq --inputfile $fname > "${fname%/*}/genome_seq.tsv" 2>/dev/null
 done
 
