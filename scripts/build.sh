@@ -6,7 +6,7 @@ KRAKEN_PATH=$4
 NUM_OF_THREADS=$5
 OUTPUT_PATH=$6
 
-FLAG_FILE="$KRAKEN_PATH/$KRAKEN_NAME/.my_script_flag"
+FLAG_FILE="$OUTPUT_PATH/.my_script_flag"
 if [ ! -f "$FLAG_FILE" ]; then
     echo "If you are ensembling specialized classifiers with a pre-existing Kraken2 database DO NOT run this command. If you are aiming to build a custom Kraken2 database (either to use alone or ensemble), then you have selected the right command. However, ensure prior to running this command that the path defined does not overlap with a pre-existing database as this could harm your pre-existing database. THIS WARNING WILL NOT BE REPEATED. Please use ./HiTaxon.sh --build once again to build a custom database"
     touch "$FLAG_FILE"
