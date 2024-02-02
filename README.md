@@ -6,7 +6,7 @@
 
 Please refer to our paper for more information:
 
-> Verma, B. and Parkinson, J. HiTaxon: A hierarchical ensemble framework for taxonomic classification of short reads. BioRxiv 2023.09.11.557224; https://doi.org/10.1101/2023.09.11.557224
+> Verma, B. and Parkinson, J. HiTaxon: A hierarchical ensemble framework for taxonomic classification of short reads. Bioinformatics Advances. 2024. DOI: https://doi.org/10.1093/bioadv/vbae016
 
 Data used to evaluate classifiers in our study can be accessed at: 
 
