@@ -36,7 +36,7 @@ Build HiTaxon
 pip install .
 ```
 
-
+Note: HiTaxon's database and classifier construction fuctionality was tested on SciNet's Niagara Linux systems. Evaluation of pre-made classifiers was tested on both the Niagara cluster alongside an intel-based MacBook Pro
 
 ## Basic Setup
 
