@@ -10,7 +10,7 @@ from HiTaxon.train_utils import build_kmers
 
 def expand_lineage(prediction, ncbi, reference_assembly):
     """
-    Determine taxonomic lineage of prediction (Phylum to prediciton)
+    Determine taxonomic lineage of prediction (From lowest taxonomic-level of prediction to Phylum-Level)
     Args:
         prediction: predicted taxa
         ncbi: NCBITaxa()
@@ -195,17 +195,21 @@ def evaluation_bwa(report_path, report_name, specialized_path):
                 pred_tracker.append((pred, score, seq[1]))
             continue
         else:
+            #Create temporary fasta file composed of reads predicted to be in the genera of interest
             temp_fasta = open(f"{report_path}/temp.fasta", "w")
             counters_seen = []
             for seq in seq_list:
                 temp_fasta.write(">"+"_"+str(seq[1])+"\n"+seqs[seq[1]][0]+"\n")
                 counters_seen.append(seq[1])
             temp_fasta.close()
+            #Generate alignments using BWA and returns alignment scores 
             os.system(f"bwa mem -t 80 {specialized_path}/{genus}.fa {report_path}/temp.fasta > {report_path}/{report_name}_{genus}_aligned.sam")
             os.system(f"awk '($1 !~ /^@/ && $3 != \"*\") {{score = \"NA\"; for(i = 12; i <= NF; i++) {{if($i ~ /^AS:i:/) {{split($i, arr, \":\"); score = arr[3]; break;}}}} print $1 \"\t\" $3 \"\t\" score}}' {report_path}/{report_name}_{genus}_aligned.sam > {report_path}/{report_name}_{genus}_reads_to_reference.tsv")
             read_2_reference = pd.read_csv(f"{report_path}/{report_name}_{genus}_reads_to_reference.tsv", header = None, sep = "\t")
             read_2_reference["species"] = read_2_reference[1].apply(lambda x: x.split("|")[1])
+            #Retain highest alignment for read,species pair 
             read_2_reference = read_2_reference.sort_values(2, ascending=False).drop_duplicates((0, "species")).sort_index()
+            #Only assign species classification if alignment score for read X,species X pair  != alignment score for read X,species Y pair 
             r2r_dict_holder = {}
             for index, row in read_2_reference.iterrows():
                 if row[0] not in r2r_dict_holder.keys():
@@ -221,11 +225,12 @@ def evaluation_bwa(report_path, report_name, specialized_path):
             new_read_2_reference = new_read_2_reference.reset_index()
             new_read_2_reference  = new_read_2_reference.rename(columns ={"index":0, 0:1, 1:2})
             read_2_reference = new_read_2_reference
+            #Add back reads which were not mapped by BWA
             positions_mapped = [int(z.split("_")[1])for z in read_2_reference[0].values]
             positions_missing = list(set(counters_seen) - set(positions_mapped))
             positions_dict = dict(zip(positions_mapped, read_2_reference[1].values))
-            for b in positions_missing:
-                positions_dict[b] = "|NA"
+            for missing_read_position in positions_missing:
+                positions_dict[missing_read_position] = "|NA"
             for seq in seq_list:
                 pred_tracker.append((positions_dict[seq[1]].split("|")[1], 1, seq[1]))
 

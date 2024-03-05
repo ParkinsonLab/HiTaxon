@@ -52,14 +52,6 @@ def data_creation(genus, ksize, seen_genera, ncbi, output_path, model_path):
             f.write("__label__" + label + " " + kmer  + "\n")
         instances +=1
 
-        #Used to terminate the loop more quickly, as does not need to look through all simulated reads to k-merize 500000 reads per species 
-        #if (instances % 10000000) == 0 : 
-            #breaker = 0
-            #for label_key, counter in species_and_sequences.items():
-                #if counter < 500000:
-                    #breaker +=1
-            #if breaker == 0:
-                #break
     #In instances where genus leads to single species, need negative example to create binary classifier
     if len(species_and_sequences.keys()) == 1:
         negative_training_set = negative_set(genus, seen_genera, ncbi)
@@ -82,7 +74,7 @@ def data_creation(genus, ksize, seen_genera, ncbi, output_path, model_path):
 
 def negative_set(binary_taxa, seen_genera, ncbi):
     """ 
-    Determine neagtive examples for single species binary classifiers 
+    Determine negative examples for single species binary classifiers 
     Args:
         binary_taxa: genus-level taxa with only one species
         seen_genera: list of all genera in which reads have been simulated for
