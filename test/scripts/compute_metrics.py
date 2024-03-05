@@ -54,7 +54,7 @@ def main():
         else:
             classifier[rank] = classifier[rank].apply(lambda x: " ".join(str(x).replace("_", " ").split(" ")[:1]))
         results = compute_metrics(truth, classifier, rank)
-    results_df = pd.DataFrame(results, columns = ["f1", "precision", "recall", "mcc"])
+    results_df = pd.DataFrame(results, columns = ["mcc", "f1", "precision", "recall"])
     results_df.to_csv(f"{report_path}/{report_name}_metrics.csv")
 
 
