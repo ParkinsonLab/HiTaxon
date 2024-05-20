@@ -108,7 +108,7 @@ In order to build this ensemble, execute the following steps in order:
    Will generate an output of `{name_of_output_report}_ensemble_bwa.csv `
 
 ### Use Case 2: Building the best taxonomic classifier for a particular dataset (significant time constrains)
-To create the best taxonomic classifier for a particular dataset when there are significant time constraints, we recommend employing Kraken2-HiTaxon-DB, which is consists solely of Kraken2 with a HiTaxon curated database. This approach has a small reduction in MCC relative to Kraken2-HiTaxon-Align but requires much less time to generate predictions.
+To create the best taxonomic classifier for a particular dataset when there are significant time constraints, we recommend employing Kraken2-HiTaxon-DB, which consists solely of Kraken2 with a HiTaxon curated database. This approach has a small reduction in MCC relative to Kraken2-HiTaxon-Align but requires much less time to generate predictions.
 
 In order to build this classifier, execute the following steps in order:
 1. Create a directory to store sequence data from RefSeq.
