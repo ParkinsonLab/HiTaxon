@@ -1,5 +1,6 @@
 from Bio import SeqIO
 from ete3 import NCBITaxa
+import os
 
 def id_generator(species, reference_assembly, ncbi):
     """
@@ -41,5 +42,15 @@ def kraken_FASTA_generator(species, name2taxid, output_path):
     counter = 0
     for record in SeqIO.parse(f"{output_path}/{genus}/{species}/non_redundant.fa", "fasta"):
         kraken_fasta.write(f">sequence{counter}|kraken:taxid|{name2taxid}" + "\n" + str(record.seq) + "\n")
+        counter +=1
+    kraken_fasta.close()
+
+def human_genome_adder(output_path):
+    os.system(f"wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.29_GRCh38.p14/GCA_000001405.29_GRCh38.p14_genomic.fna.gz -O {output_path}/human_genomic.fna.gz")
+    os.system(f"gzip -d {output_path}/human_genomic.fna.gz")
+    kraken_fasta = open(f"{output_path}/human_kraken.fa", "w")
+    counter = 0
+    for record in SeqIO.parse(f"{output_path}/human_genomic.fna", "fasta"):
+        kraken_fasta.write(f">sequence{counter}|kraken:taxid|9606" + "\n" + str(record.seq) + "\n")
         counter +=1
     kraken_fasta.close()

@@ -15,6 +15,7 @@ else
     #Create directory and install taxonomy
     if [ ! -d "$KRAKEN_PATH/$KRAKEN_NAME" ]; then
         echo "Kraken DB directory not found. Creating Directory and Downloading Taxonomy..."
+        python "scripts/build/human_download.py" $OUTPUT_PATH
         "scripts/build/kraken_download.sh" $KRAKEN_NAME $KRAKEN_PATH 
         echo "Taxonomy installed"
         # Ask if want to quit, as remaining scripts can be used offline (I.E SciNet Niagara compute nodes)
